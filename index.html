@@ -1,0 +1,444 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Gap Scorecard</title></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&display=swap">
+<style>
+:root{
+  --purple:#9895d3; --purple-mid:#6f6bb8; --purple-deep:#3d3973; --purple-ink:#2b2856;
+  --lav:#f3f2fc; --lav-2:#e6e4f7; --gold:#d09963; --gold-ink:#9a6330; --gold-soft:#fcf5ed;
+  --ink:#24223b; --muted:#66637f; --line:#e4e2ef; --page:#ffffff;
+  --ok:#2e8a58; --ok-soft:#e8f5ee; --warn:#b97a2c; --warn-soft:#fbf1e3; --bad:#b04848; --bad-soft:#f9e9e9;
+  --display:"Playfair Display", Georgia, "Times New Roman", serif;
+  --body:"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;margin:0}
+h1,h2,h3,h4{font-family:var(--display);color:var(--purple-ink);text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+a{color:var(--purple-deep)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1040px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brandmark{font-family:var(--display);font-style:italic;font-size:17px;color:var(--purple-deep);white-space:nowrap}
+.brandmark b{font-style:normal;color:var(--gold-ink);font-weight:600}
+.prog{flex:1 1 200px;display:flex;align-items:center;gap:10px;min-width:0}
+.prog-track{flex:1;height:8px;border-radius:99px;background:var(--lav-2);overflow:hidden}
+.prog-fill{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--gold));transition:width .4s}
+.prog-num{font-weight:700;font-size:14px;color:var(--purple-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border-radius:8px;padding:9px 14px;border:1px solid var(--purple-deep);background:var(--purple-deep);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--purple-ink)}
+.btn.ghost{background:transparent;color:var(--purple-deep)}
+.btn.ghost:hover{background:var(--lav)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#2b1c0c}
+.btn.gold:hover{background:#c38a52}
+.btn.sm{padding:5px 10px;font-size:12.5px}
+.btn.lg{padding:13px 20px;font-size:16px}
+
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:0 40px}
+.hero{padding-block:48px 30px;border-bottom:1px solid var(--line);display:grid;gap:16px}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);font-weight:700}
+.hero h1{font-style:italic;font-weight:500;font-size:clamp(40px,7vw,76px);color:var(--purple-deep)}
+.hero h1 span{display:block;font-style:normal;font-weight:600;font-size:.42em;letter-spacing:.02em;color:var(--purple-ink);margin-top:8px}
+.lede{font-size:clamp(17px,2.2vw,20px);max-width:62ch}
+.byline{font-size:14px;color:var(--muted)}
+.idrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:720px}
+.idrow label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--purple-deep)}
+input[type=text],input[type=number]{font-family:var(--body);font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--line);border-bottom:2px solid var(--purple);border-radius:6px;padding:8px 10px;width:100%}
+input:focus{outline:none;border-color:var(--purple-mid);box-shadow:0 0 0 3px var(--lav-2)}
+input::placeholder{color:#a3a0ba}
+
+.how{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--muted)}
+.key{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-weight:600;color:var(--purple-ink);background:#fff}
+
+.sec{padding-block:38px 6px;display:grid;gap:16px}
+.sec-head{display:grid;gap:6px}
+.sec-head .part{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--gold-ink)}
+.sec-head h2{font-style:italic;font-weight:500;font-size:clamp(28px,4.4vw,42px);color:var(--purple-deep)}
+.sec-head p{max-width:66ch;color:var(--muted)}
+.sec-head .ask{font-family:var(--display);font-style:italic;color:var(--purple-ink);font-size:18px}
+
+.q{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:center}
+.q.done{border-color:var(--lav-2);background:#fcfcff}
+.q p{font-size:15.5px}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opts label{cursor:pointer}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts span{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:6px 13px;font-size:13.5px;font-weight:600;color:var(--purple-ink);background:#fff;white-space:nowrap}
+.opts input:focus-visible + span{outline:2px solid var(--gold);outline-offset:2px}
+.opts input:checked + span.a2{background:var(--purple-deep);border-color:var(--purple-deep);color:#fff}
+.opts input:checked + span.a1{background:var(--lav-2);border-color:var(--purple);color:var(--purple-ink)}
+.opts input:checked + span.a0{background:var(--gold-soft);border-color:var(--gold);color:var(--gold-ink)}
+@media (max-width:640px){.q{grid-template-columns:1fr}}
+
+.money{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;border:1px solid var(--line);border-radius:12px;padding:16px}
+.money label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--purple-deep)}
+.money small{font-weight:400;color:var(--muted)}
+
+/* results */
+.results{margin-top:40px;border:2px solid var(--purple);border-radius:18px;padding:28px;display:grid;gap:24px}
+.res-top{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+@media (max-width:700px){.res-top{grid-template-columns:1fr}}
+.score{width:190px;height:190px;border-radius:50%;display:grid;place-content:center;text-align:center;background:conic-gradient(var(--purple-deep) var(--deg,0deg), var(--lav-2) 0)}
+.score-in{width:150px;height:150px;border-radius:50%;background:#fff;display:grid;place-content:center}
+.score .num{font-family:var(--display);font-size:56px;font-weight:700;line-height:1;color:var(--purple-deep);font-variant-numeric:tabular-nums}
+.score .of{font-size:13px;color:var(--muted)}
+.tier-name{font-family:var(--display);font-style:italic;font-size:clamp(28px,4vw,40px);color:var(--purple-deep)}
+.tier-desc{color:var(--ink);max-width:60ch}
+.answered{font-size:13px;color:var(--muted)}
+.bars{display:grid;gap:10px}
+.bar-row{display:grid;grid-template-columns:200px 1fr 54px;gap:12px;align-items:center;font-size:14px}
+.bar-row .lbl{font-weight:600;color:var(--purple-ink)}
+.bar-track{height:14px;border-radius:4px;background:var(--lav)}
+.bar-fill{height:100%;border-radius:4px;background:var(--purple-mid);transition:width .4s}
+.bar-row.leak .bar-fill{background:var(--gold)}
+.bar-row .pct{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.bar-row.leak .lbl::after{content:"  · biggest leak";color:var(--gold-ink);font-weight:700;font-size:12px}
+@media (max-width:520px){.bar-row{grid-template-columns:120px 1fr 44px}.bar-row.leak .lbl::after{content:" ·leak"}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.tile{border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:4px;align-content:start}
+.tile .k{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gold-ink)}
+.tile .v{font-family:var(--display);font-size:34px;font-weight:700;color:var(--purple-deep);line-height:1.1;font-variant-numeric:tabular-nums}
+.tile p{font-size:14px;color:var(--muted)}
+.chip{display:inline-block;font-size:12.5px;font-weight:700;border-radius:99px;padding:3px 10px;justify-self:start}
+.chip.g{background:var(--ok-soft);color:var(--ok)} .chip.y{background:var(--warn-soft);color:var(--warn)} .chip.r{background:var(--bad-soft);color:var(--bad)}
+.callout{border:2px solid var(--gold);border-radius:12px;padding:18px 20px;background:var(--gold-soft);display:grid;gap:8px}
+.callout h3{font-size:21px}
+.next{background:var(--purple-deep);color:#fff;border-radius:14px;padding:24px;display:grid;gap:12px}
+.next .eyebrow{color:#f1c89e}
+.next h3{color:#fff;font-style:italic;font-weight:500;font-size:clamp(24px,3.4vw,32px)}
+.next p{color:#e3e1f7;max-width:62ch}
+.next .acts{display:flex;gap:10px;flex-wrap:wrap}
+.next .btn.ghost{color:#fff;border-color:#c9c6ee}
+.next .btn.ghost:hover{background:rgba(255,255,255,.08)}
+
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.datum{border-top:3px solid var(--purple);padding-top:12px;display:grid;gap:4px;align-content:start}
+.datum:nth-child(even){border-top-color:var(--gold)}
+.datum .v{font-family:var(--display);font-size:36px;font-weight:700;color:var(--purple-deep);line-height:1.05}
+.datum p{font-size:14.5px}
+.datum a{font-size:12.5px;color:var(--muted)}
+
+footer{text-align:center;padding-block:30px 10px;font-size:13px;color:var(--muted);display:grid;gap:4px;border-top:1px solid var(--line);margin-top:40px}
+footer .site{font-family:var(--display);font-style:italic;font-size:18px;color:var(--purple-deep)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--purple-ink);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;z-index:40;max-width:calc(100% - 32px)}
+.confirm{display:flex;gap:8px;align-items:center;font-size:13px;flex-wrap:wrap}
+</style>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brandmark">Consulting with <b>AJR</b></div>
+    <div class="prog" aria-label="Your progress">
+      <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+      <div class="prog-num" id="progNum">0 of 25</div>
+    </div>
+    <a class="btn ghost sm" href="#results">See my results</a>
+    <button class="btn gold" id="pdfBtn" type="button">Download my PDF</button>
+    <span id="resetWrap"><button class="btn ghost sm" id="resetBtn" type="button">Reset</button></span>
+  </div>
+</header>
+
+<main class="wrap">
+<section class="hero">
+  <div class="eyebrow">Beyond the Marketing: Close the Gap · Free Assessment</div>
+  <h1>The Marketing-to-Experience Gap™<span>Scorecard</span></h1>
+  <p class="lede">Your marketing makes a promise the second a family clicks. This scorecard shows you, in about five minutes, whether your center keeps it in the first 30 days... where families are slipping through, and what that's costing you.</p>
+  <p class="byline">Built by Aliya Johnson-Roberts · second-generation childcare CEO · 2 STAR-4 centers in Philadelphia, 257 licensed seats</p>
+  <div class="idrow">
+    <label for="who">Your name<input type="text" id="who" class="f" placeholder="First and last name"></label>
+    <label for="center">Your center<input type="text" id="center" class="f" placeholder="Center name"></label>
+  </div>
+  <div class="how"><span>Answer for what happens <b>every time, for every family</b>. Not on your best week.</span><span class="key">Always = 2</span><span class="key">Sometimes = 1</span><span class="key">Not yet = 0</span></div>
+</section>
+
+<div id="sections"></div>
+
+<section class="sec" id="money">
+  <div class="sec-head">
+    <div class="part">Your numbers</div>
+    <h2>What is the gap costing you?</h2>
+    <p>Optional, and it stays in your browser. National average tuition is loaded for you. Swap in your real numbers for a real answer.</p>
+  </div>
+  <div class="money">
+    <label for="m_tuition">Average weekly tuition <small>(national average: $254)</small><input type="number" id="m_tuition" class="f" min="0" value="254"></label>
+    <label for="m_months">Months a family normally stays<input type="number" id="m_months" class="f" min="0" value="24"></label>
+    <label for="m_lost">Families who left in their first 90 days last year<input type="number" id="m_lost" class="f" min="0" placeholder="Be honest"></label>
+    <label for="m_acq">Cost to land one enrollment <small>(ads, tours, admin time)</small><input type="number" id="m_acq" class="f" min="0" placeholder="e.g. 400"></label>
+  </div>
+</section>
+
+<section class="results" id="results" aria-live="polite">
+  <div class="res-top">
+    <div class="score" id="scoreRing"><div class="score-in"><span class="num" id="scoreNum">0</span><span class="of">Experience Score</span></div></div>
+    <div style="display:grid;gap:8px">
+      <div class="eyebrow">Your result</div>
+      <div class="tier-name" id="tierName">Answer to see your score</div>
+      <p class="tier-desc" id="tierDesc">Your score updates live as you answer. 100 means your experience keeps every promise your marketing makes.</p>
+      <p class="answered" id="answered"></p>
+    </div>
+  </div>
+
+  <div style="display:grid;gap:10px">
+    <h4 style="font-family:var(--body);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--purple-deep)">Where your families slip through</h4>
+    <div class="bars" id="bars"></div>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><span class="k">Owner dependency</span><span class="v" id="depV">-</span><span class="chip" id="depChip"></span><p id="depP">How much of the experience runs on you.</p></div>
+    <div class="tile"><span class="k">Foundation</span><span class="v" id="fndV">-</span><span class="chip" id="fndChip"></span><p id="fndP">Whether your operation can hold more.</p></div>
+    <div class="tile"><span class="k">Money in your gap</span><span class="v" id="monV">-</span><p id="monP">Add your numbers above to see it.</p></div>
+  </div>
+
+  <div class="callout" id="leakBox">
+    <h3 id="leakTitle">Your biggest leak</h3>
+    <p id="leakText">Answer the statements to find it.</p>
+  </div>
+
+  <div class="next">
+    <div class="eyebrow">Your best next step</div>
+    <h3 id="nextTitle">Finish the scorecard to get your recommendation</h3>
+    <p id="nextText">Every owner's gap is different. Your answers decide what you should build first.</p>
+    <div class="acts">
+      <a class="btn gold lg" href="https://letsmeet.io/aliyajohnsonroberts/15min-best-fit-call" target="_blank" rel="noopener">Book my free 15-min Best-Fit Call</a>
+      <a class="btn ghost lg" href="https://dullaadrian27-ctrl.github.io/First-30-Days-Map/" target="_blank" rel="noopener">Open the First 30 Days Map™</a>
+    </div>
+    <p style="font-size:13px">Your bonus: the First 30 Days Family Experience Map™, with 14 touchpoints, 11 copy-and-paste scripts and the Cost of a Lost Family calculator.</p>
+  </div>
+</section>
+
+<section class="sec" id="data">
+  <div class="sec-head">
+    <div class="part">Why this matters</div>
+    <h2>The real numbers behind the gap</h2>
+  </div>
+  <div class="data">
+    <div class="datum"><span class="v">$13,184</span><p>National average annual price of child care in 2025. Every family that leaves early walks out with years of it.</p><a href="https://info.childcareaware.org/price-and-supply-2025" target="_blank" rel="noopener">Child Care Aware of America, 2025</a></div>
+    <div class="datum"><span class="v">65.7%</span><p>of parents get child care information from people they know. Your current families are your next families' search engine.</p><a href="https://www.norc.org/content/dam/norc-org/pdf2025/how-parents-use-info-to-search-highlights-july25.pdf" target="_blank" rel="noopener">OPRE / ACF, 2025 (2024 parent survey)</a></div>
+    <div class="datum"><span class="v">42%</span><p>of consumers trust online reviews as much as a friend's recommendation, down from 79% in 2020. 96% still read them.</p><a href="https://www.brightlocal.com/research/local-consumer-review-survey-2025/" target="_blank" rel="noopener">BrightLocal, 2025</a></div>
+    <div class="datum"><span class="v">5 to 25x</span><p>more expensive to win a new customer than keep one. And 5% better retention can lift profits 25% to 95%.</p><a href="https://hbr.org/2014/10/the-value-of-keeping-the-right-customers" target="_blank" rel="noopener">Harvard Business Review; Bain &amp; Co.</a></div>
+    <div class="datum"><span class="v">40%</span><p>average annual teacher turnover at publicly funded centers in one large multi-year study. Experience can't live in one teacher's head.</p><a href="https://www.edworkingpapers.com/ai21-474" target="_blank" rel="noopener">Doromal, Bassok et al., 2022</a></div>
+  </div>
+</section>
+
+<footer>
+  <span class="site">consultingwithajr.com</span>
+  <span>info@aliyajohnsonroberts.com · Best-Fit Call: letsmeet.io/aliyajohnsonroberts/15min-best-fit-call</span>
+  <span>© 2026 Consulting with AJR · The Marketing-to-Experience Gap™ Scorecard</span>
+</footer>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+var KEY="ajr-gap-scorecard-v1", S={};
+try{ S=JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ S={}; }
+function persist(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function toast(m){ var t=document.getElementById("toast"); t.textContent=m; t.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(function(){t.hidden=true;},3200); }
+
+var SECS=[
+ {id:"confirm",name:"Confirm",part:"Stage 1 · Enrollment to Day 1",ask:"The parent is wondering: \"Did I make the right choice?\"",qs:[
+  "Every new family gets a personal welcome within 24 hours that names the child, the classroom, the teachers and the start date.",
+  "Between enrollment and Day 1, families hear what to expect from us, not just which forms to sign.",
+  "The teacher gets a one-page snapshot of the child (comfort items, allergies, what helps when upset) before Day 1."]},
+ {id:"welcome",name:"Welcome",part:"Stage 2 · Days before Day 1",ask:"\"Are they ready for my child?\"",qs:[
+  "The teacher personally reaches out to the family before the first day.",
+  "The cubby, the child's name and allergy information are ready before the child walks in.",
+  "The whole classroom team, not just the lead, knows the child's name and comfort needs."]},
+ {id:"reassure",name:"Reassure",part:"Stage 3 · Day 1",ask:"\"Is my child okay without me?\"",qs:[
+  "On Day 1, the child and the parent are both greeted by name.",
+  "Parents get an honest update in the first few hours, before they have to ask for one.",
+  "If the lead teacher calls out on Day 1, the family experience doesn't change."]},
+ {id:"connect",name:"Connect",part:"Stage 4 · Days 2 to 7",ask:"\"Do they really know my child?\"",qs:[
+  "In Week 1, every family gets a specific, human observation about their child, not just ate, slept and diapered.",
+  "By Day 3, someone asks the parent how THEY are feeling about the transition.",
+  "A director or leader personally checks in with every new family by Day 7."]},
+ {id:"deepen",name:"Deepen",part:"Stage 5 · Days 8 to 30",ask:"\"Do we belong here?\"",qs:[
+  "By Week 3, families are invited to share something of themselves: a photo, a tradition, a favorite song or book.",
+  "Every family gets a structured 30-day check-in that asks what's been different from what they expected.",
+  "Happy families are asked for a review or referral within 48 hours. Concerns get one owner and a deadline."]},
+ {id:"systems",name:"Systems",part:"The engine",ask:"Does the experience run on a system... or on you?",qs:[
+  "Every touchpoint above has one named owner. Not \"the team.\"",
+  "Touchpoints are triggered by a system (a task, an automation, a calendar hold), not by someone remembering.",
+  "If a touchpoint is missed, someone other than me notices within 24 hours.",
+  "If I were gone for two weeks, new families would get the exact same experience."]},
+ {id:"foundation",name:"Foundation",part:"Before You Pursue This: Are You Ready?",ask:"Can your operation hold a better experience every single day?",qs:[
+  "Strong systems: enrollment, billing and onboarding steps are written down, not living in one person's head.",
+  "Staff consistency: classroom teams are stable enough that the teacher who greets a family is still there on Day 30.",
+  "My staff executes curriculum and protocols with fidelity, on a random Tuesday in February, not just on tour day.",
+  "Active supervision: a leader is on the floor at arrival and pickup, seeing what families see.",
+  "Strong financials: I know my cost to land an enrollment, I track early withdrawals and my budget can absorb a slow month.",
+  "Compliance: we are inspection-ready today. No open violations, no expired clearances, files complete."]}
+];
+var TOTALQ = SECS.reduce(function(a,s){return a+s.qs.length;},0);
+
+document.getElementById("sections").innerHTML = SECS.map(function(s,si){
+  return '<section class="sec" id="sec-'+s.id+'"><div class="sec-head"><div class="part">'+esc(s.part)+'</div><h2>'+esc(s.name)+'</h2><p class="ask">'+esc(s.ask)+'</p></div>'+
+   s.qs.map(function(q,qi){ var n=s.id+"_"+qi;
+     return '<div class="q" id="row_'+n+'"><p>'+esc(q)+'</p><div class="opts" role="radiogroup" aria-label="'+esc(q)+'">'+
+      '<label><input type="radio" name="'+n+'" id="'+n+'_2" value="2" class="f"><span class="a2">Always</span></label>'+
+      '<label><input type="radio" name="'+n+'" id="'+n+'_1" value="1" class="f"><span class="a1">Sometimes</span></label>'+
+      '<label><input type="radio" name="'+n+'" id="'+n+'_0" value="0" class="f"><span class="a0">Not yet</span></label></div></div>';
+   }).join("")+'</section>';
+}).join("");
+
+document.getElementById("bars").innerHTML = SECS.slice(0,6).map(function(s){
+  return '<div class="bar-row" id="bar_'+s.id+'"><span class="lbl">'+esc(s.name)+'</span><div class="bar-track"><div class="bar-fill" style="width:0"></div></div><span class="pct">-</span></div>';
+}).join("");
+
+var fields=document.querySelectorAll(".f");
+fields.forEach(function(el){
+  if(el.type==="radio"){ if(S[el.name]===el.value) el.checked=true; }
+  else if(S[el.id]!=null) el.value=S[el.id];
+  el.addEventListener(el.type==="radio"?"change":"input",function(){
+    if(el.type==="radio") S[el.name]=el.value; else S[el.id]=el.value;
+    persist(); update();
+  });
+});
+
+function val(id){ var e=document.getElementById(id); return e?e.value.trim():""; }
+function num(id){ var v=parseFloat(val(id)); return isNaN(v)?0:v; }
+function money(n){ return "$"+Math.round(n).toLocaleString("en-US"); }
+function secScore(s){ var got=0,ans=0; s.qs.forEach(function(_,qi){ var v=S[s.id+"_"+qi]; if(v!=null){ ans++; got+=+v; } }); return {got:got,ans:ans,max:s.qs.length*2,pct:ans?Math.round(got/(ans*2)*100):null}; }
+
+var LEAK = {
+ confirm:["Confirm: the silence after the deposit","Families decide whether they made the right choice in the days after they pay. Install a 24-hour personal welcome and a one-page New Child Snapshot for the teacher. Map pages: Stage 1 + Script Bank (Welcome message)."],
+ welcome:["Welcome: the child is invisible before Day 1","The first time your teacher learns the child's name shouldn't be at the door. Install the pre-start teacher text and the classroom readiness check. Map pages: Stage 2 + Script Bank (Teacher introduction)."],
+ reassure:["Reassure: Day 1 is left to chance","Day 1 is the most emotional day of the relationship. Script the greeting, the honest 2-hour update and the 1-1-1 pickup update, and build a Day 1 Backup Plan. Map pages: Stage 3 + Nervous Parent Protocol."],
+ connect:["Connect: the Day 4 drop-off","Day 1 gets balloons; Day 4 gets nothing. Install one human detail a day, the Day 3 parent pulse check and the Day 7 director check-in. Map pages: Stage 4 + Script Bank (Day 3, Day 5-7)."],
+ deepen:["Deepen: no Day 30 conversation","You're leaving referrals and reviews on the table and missing early warning signs. Install the 30-Day Experience Check-In and route every family to the Advocate or Repair path. Map pages: Part 7."],
+ systems:["Systems: the experience runs on you","Good things happen when the right person remembers. Give every touchpoint an owner, a trigger and a 'who notices.' Map pages: Part 4, the Implementation Map + live exercise."]
+};
+
+function update(){
+  var answered=0; SECS.forEach(function(s){ s.qs.forEach(function(_,qi){ var k=s.id+"_"+qi; var row=document.getElementById("row_"+k); if(S[k]!=null){answered++; row.classList.add("done");} else row.classList.remove("done"); }); });
+  document.getElementById("progFill").style.width=Math.round(answered/TOTALQ*100)+"%";
+  document.getElementById("progNum").textContent=answered+" of "+TOTALQ;
+
+  var exp=SECS.slice(0,6), got=0, max=0, expAns=0;
+  exp.forEach(function(s){ var r=secScore(s); got+=r.got; max+=r.ans*2; expAns+=r.ans; });
+  var score = max? Math.round(got/max*100) : 0;
+  document.getElementById("scoreNum").textContent = expAns? score : 0;
+  document.getElementById("scoreRing").style.setProperty("--deg", (expAns? score*3.6 : 0)+"deg");
+  var expQ = exp.reduce(function(a,s){return a+s.qs.length;},0);
+  document.getElementById("answered").textContent = expAns? (expAns<expQ? "Based on "+expAns+" of "+expQ+" experience statements. Keep going for your full picture." : "Based on all "+expQ+" experience statements.") : "";
+
+  var tn,td;
+  if(!expAns){ tn="Answer to see your score"; td="Your score updates live as you answer. 100 means your experience keeps every promise your marketing makes."; }
+  else if(score>=80){ tn="The Proof Keeper"; td="Your experience keeps the promise your marketing makes. Now protect it, measure it and turn happy families into your referral engine."; }
+  else if(score>=60){ tn="The Leaky Bucket"; td="You have good people and good moments, but the experience isn't consistent yet. Families are slipping through on the days the system doesn't hold."; }
+  else if(score>=40){ tn="The Hope-Based Experience"; td="It works when the right person is in the building and remembers. That means some families get your best, and some get your busiest day."; }
+  else { tn="The Owner-Powered Center"; td="Right now, the experience runs through you. Every dollar you spend on marketing is filling a bucket with a hole in it. The good news: this is the most fixable gap in your business."; }
+  document.getElementById("tierName").textContent=tn; document.getElementById("tierDesc").textContent=td;
+
+  var low=null;
+  exp.forEach(function(s){ var r=secScore(s), row=document.getElementById("bar_"+s.id);
+    row.querySelector(".bar-fill").style.width=(r.pct==null?0:r.pct)+"%";
+    row.querySelector(".pct").textContent=r.pct==null?"-":r.pct+"%";
+    row.classList.remove("leak");
+    if(r.pct!=null && (low==null || r.pct<low.pct)) low={id:s.id,pct:r.pct};
+  });
+  if(low && low.pct<100){ document.getElementById("bar_"+low.id).classList.add("leak"); document.getElementById("leakTitle").textContent="Your biggest leak: "+(function(t){return t.charAt(0).toUpperCase()+t.slice(1);})(LEAK[low.id][0].split(": ")[1]); document.getElementById("leakText").textContent=LEAK[low.id][1]; }
+  else if(low){ document.getElementById("leakTitle").textContent="No leaks in what you've answered"; document.getElementById("leakText").textContent="Every answer so far is 'Always.' Keep going, and then ask your director to take it without looking at yours. Compare."; }
+  else { document.getElementById("leakTitle").textContent="Your biggest leak"; document.getElementById("leakText").textContent="Answer the statements to find it."; }
+
+  var sy=secScore(SECS[5]), dv=document.getElementById("depV"), dc=document.getElementById("depChip"), dp=document.getElementById("depP");
+  if(sy.pct==null){ dv.textContent="-"; dc.textContent=""; dc.className="chip"; dp.textContent="How much of the experience runs on you."; }
+  else { var dep=100-sy.pct; dv.textContent=dep+"%";
+    if(dep<=25){dc.className="chip g";dc.textContent="Low: it runs without you";dp.textContent="Your systems carry the experience. That's a CEO-led company.";}
+    else if(dep<=50){dc.className="chip y";dc.textContent="Medium: partly on you";dp.textContent="Some of the experience still depends on you remembering or checking.";}
+    else {dc.className="chip r";dc.textContent="High: it runs on you";dp.textContent="If you took two weeks off, new families would feel it. That's the gap.";} }
+
+  var fd=secScore(SECS[6]), fv=document.getElementById("fndV"), fc=document.getElementById("fndChip"), fp=document.getElementById("fndP");
+  if(fd.pct==null){ fv.textContent="-"; fc.textContent=""; fc.className="chip"; fp.textContent="Whether your operation can hold more."; }
+  else { fv.textContent=fd.got+" / "+(fd.ans*2);
+    if(fd.pct>=80){fc.className="chip g";fc.textContent="Ready to install";fp.textContent="Your foundation can hold a stronger family experience. Build on it.";}
+    else if(fd.pct>=55){fc.className="chip y";fc.textContent="Install in phases";fp.textContent="Start with three touchpoints you can deliver every time while you shore up the rest.";}
+    else {fc.className="chip r";fc.textContent="Foundation first";fp.textContent="Don't add more promises yet. Strengthen the operation underneath them first.";} }
+
+  var tuit=num("m_tuition"), mo=num("m_months"), lost=num("m_lost"), acq=num("m_acq"), mv=document.getElementById("monV"), mp=document.getElementById("monP");
+  if(val("m_lost")!=="" && tuit>0 && mo>0){ var each=tuit*4.33*Math.max(mo-2,0)+acq; var tot=lost*each; mv.textContent=money(tot); mp.textContent=lost+" families x about "+money(each)+" each in remaining tuition"+(acq?" and acquisition cost":"")+". Plus every referral they never sent."; }
+  else { mv.textContent="-"; mp.textContent="Add your numbers above to see it."; }
+
+  var nt="Finish the scorecard to get your recommendation", nx="Every owner's gap is different. Your answers decide what you should build first.";
+  if(answered>=Math.ceil(TOTALQ*0.6)){
+    if(fd.pct!=null && fd.pct<55){ nt="Start with your foundation"; nx="Before you add a better family experience, the operation underneath it has to hold. On a Best-Fit Call, we'll pinpoint the one foundation piece to fix first, and which free tools and focused workshops on the Childcare CEO Pathway™ will get you there fastest."; }
+    else if(sy.pct!=null && sy.pct<50){ nt="Your next move: the Childcare B.U.I.L.D. System™"; nx="Your score says the experience runs on you. That isn't a family experience problem. It's a company that still runs through its owner. B.U.I.L.D. is my 90-day accelerator for established owners: Build the Foundation, Understand the Numbers, Install the Systems, Lead the Team, Design the Legacy. Book a Best-Fit Call and we'll see if it's the right fit."; }
+    else if(score<80){ nt="Install the First 30 Days Map in the next 30 days"; nx="Your foundation is there. Your gap is consistency. Open your bonus Map, pick three touchpoints, assign owners and put dates on them. Want help installing it with your team? That's exactly what a Best-Fit Call is for."; }
+    else { nt="You're ready to lead at the company level"; nx="Your experience keeps the promise and runs without you. The next questions are CEO questions: growth, leadership, profit and legacy. That's the work we do inside Inner Circle™. Book a Best-Fit Call and let's talk about what's next."; }
+  }
+  document.getElementById("nextTitle").textContent=nt; document.getElementById("nextText").textContent=nx;
+  window.__res={score:score,tn:tn,td:td,exp:exp,nt:nt,nx:nx,low:low,expAns:expAns};
+}
+
+var rw=document.getElementById("resetWrap");
+function bindReset(){ document.getElementById("resetBtn").addEventListener("click",function(){
+  rw.innerHTML='<span class="confirm">Clear all answers? <button class="btn sm" id="rYes" type="button">Yes, clear</button><button class="btn ghost sm" id="rNo" type="button">Cancel</button></span>';
+  document.getElementById("rYes").onclick=function(){ S={}; try{localStorage.removeItem(KEY);}catch(e){} fields.forEach(function(el){ if(el.type==="radio") el.checked=false; else el.value=el.defaultValue||""; }); restore(); update(); toast("Scorecard cleared."); };
+  document.getElementById("rNo").onclick=restore; }); }
+function restore(){ rw.innerHTML='<button class="btn ghost sm" id="resetBtn" type="button">Reset</button>'; bindReset(); }
+bindReset();
+
+
+/* Save a PDF: uses the Claude app's download bridge when present, otherwise a normal browser download (standalone). */
+async function savePDF(bytes, name){
+  var blob=new Blob([bytes],{type:"application/pdf"});
+  if(window.claude && window.claude.use){
+    try{ var dl=await window.claude.use("downloads"); if(dl){ await dl.save({filename:name, data:blob}); return; } }
+    catch(err){ if(err && (err.code==="declined"||err.code==="rate_limited")) throw err; }
+  }
+  var url=URL.createObjectURL(blob), a=document.createElement("a");
+  a.href=url; a.download=name; a.style.display="none";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 10000);
+}
+document.getElementById("pdfBtn").addEventListener("click", async function(){
+  var btn=this; if(!window.jspdf){ toast("The PDF tool is still loading. Try again in a moment."); return; }
+  btn.disabled=true; btn.textContent="Building PDF...";
+  try{
+    var bytes=buildPDF();
+    await savePDF(bytes, ((val("center")||"My Center").replace(/[^\w\- ]+/g,"").trim())+" - Gap Scorecard.pdf");
+    toast("Your PDF is saved.");
+  }catch(err){ var c=err&&err.code; toast(c==="declined"?"Download cancelled.":c==="rate_limited"?"A save prompt is already open.":"The PDF couldn't be saved here. Your answers are still saved in this browser."); }
+  finally{ btn.disabled=false; btn.textContent="Download my PDF"; }
+});
+
+function buildPDF(){
+  var r=window.__res, J=window.jspdf.jsPDF, doc=new J({unit:"pt",format:"letter"}), W=612, M=50, y=0;
+  var P=[61,57,115], PU=[152,149,211], G=[208,153,99], GI=[154,99,48], INK=[36,34,59], MU=[102,99,127], LAV=[243,242,252];
+  function need(h){ if(y+h>720){ doc.addPage(); y=60; } }
+  function para(t,o){ o=o||{}; doc.setFont(o.font||"helvetica",o.style||"normal"); doc.setFontSize(o.size||10.5); var c=o.color||INK; doc.setTextColor(c[0],c[1],c[2]); doc.splitTextToSize(t,W-2*M-(o.indent||0)).forEach(function(l){ need(15); doc.text(l,M+(o.indent||0),y); y+=o.lh||14.5; }); y+=(o.after==null?6:o.after); }
+  function h2(t){ need(50); y+=8; para(t,{font:"times",style:"bolditalic",size:19,color:P,after:4}); doc.setDrawColor(PU[0],PU[1],PU[2]); doc.setLineWidth(1.2); doc.line(M,y-4,M+60,y-4); y+=10; }
+  doc.setFillColor(LAV[0],LAV[1],LAV[2]); doc.rect(0,0,W,175,"F"); doc.setFillColor(G[0],G[1],G[2]); doc.rect(0,175,W,4,"F");
+  doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setTextColor(GI[0],GI[1],GI[2]); doc.text("CONSULTING WITH AJR  |  BEYOND THE MARKETING: CLOSE THE GAP",M,50);
+  doc.setFont("times","italic"); doc.setFontSize(30); doc.setTextColor(P[0],P[1],P[2]); doc.text("The Marketing-to-Experience Gap™",M,92);
+  doc.setFont("times","bold"); doc.setFontSize(18); doc.text("Scorecard Results",M,118);
+  doc.setFont("helvetica","normal"); doc.setFontSize(11); doc.setTextColor(INK[0],INK[1],INK[2]); doc.text([val("who")||"",val("center")||""].filter(Boolean).join("  |  ")+"   "+new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"}),M,148);
+  y=215;
+  para("Experience Score: "+(r.expAns?r.score:0)+" / 100",{font:"times",style:"bold",size:22,color:P,after:2});
+  para(r.tn,{font:"times",style:"italic",size:16,color:GI,after:4}); para(r.td);
+  h2("Where families slip through");
+  r.exp.forEach(function(s){ var x=secScore(s); need(22); doc.setFont("helvetica","bold"); doc.setFontSize(10.5); doc.setTextColor(INK[0],INK[1],INK[2]); doc.text(s.name,M,y); doc.setFillColor(LAV[0],LAV[1],LAV[2]); doc.rect(M+110,y-9,300,10,"F"); var pc=x.pct==null?0:x.pct; var c=(r.low&&r.low.id===s.id&&pc<100)?G:[111,107,184]; doc.setFillColor(c[0],c[1],c[2]); doc.rect(M+110,y-9,3*pc,10,"F"); doc.setFont("helvetica","normal"); doc.text(x.pct==null?"-":pc+"%",M+420,y); y+=20; });
+  y+=4;
+  para(document.getElementById("leakTitle").textContent,{style:"bold",color:GI,after:2}); para(document.getElementById("leakText").textContent);
+  h2("Your indicators");
+  para("Owner dependency: "+document.getElementById("depV").textContent+"  "+document.getElementById("depChip").textContent,{style:"bold",after:2}); para(document.getElementById("depP").textContent);
+  para("Foundation: "+document.getElementById("fndV").textContent+"  "+document.getElementById("fndChip").textContent,{style:"bold",after:2}); para(document.getElementById("fndP").textContent);
+  para("Money in your gap: "+document.getElementById("monV").textContent,{style:"bold",after:2}); para(document.getElementById("monP").textContent);
+  h2("Your best next step");
+  para(r.nt,{style:"bold",color:P,size:12,after:3}); para(r.nx);
+  para("Book your free 15-minute Best-Fit Call: letsmeet.io/aliyajohnsonroberts/15min-best-fit-call",{style:"bold",color:GI});
+  h2("Your answers");
+  var lab={"2":"Always","1":"Sometimes","0":"Not yet"};
+  SECS.forEach(function(s){ para(s.name.toUpperCase(),{style:"bold",size:9.5,color:GI,after:2}); s.qs.forEach(function(q,qi){ var v=S[s.id+"_"+qi]; para((v!=null?lab[v]:"Not answered")+"  |  "+q,{size:9.5,after:3,color:v==="0"?GI:INK}); }); y+=4; });
+  var n=doc.getNumberOfPages(); for(var i=1;i<=n;i++){ doc.setPage(i); doc.setDrawColor(G[0],G[1],G[2]); doc.setLineWidth(1); doc.line(M,752,W-M,752); doc.setFont("times","italic"); doc.setFontSize(11); doc.setTextColor(P[0],P[1],P[2]); doc.text("consultingwithajr.com",M,768); doc.setFont("helvetica","normal"); doc.setFontSize(8.5); doc.setTextColor(MU[0],MU[1],MU[2]); doc.text("info@aliyajohnsonroberts.com  |  Page "+i+" of "+n,W-M,768,{align:"right"}); }
+  return doc.output("arraybuffer");
+}
+update();
+})();
+</script>
+
+</body></html>
